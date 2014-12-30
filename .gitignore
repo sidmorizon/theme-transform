@@ -29,10 +29,11 @@ node_modules
 
 # 生产路径
 dist
-transform/dist
 # bower库
 bower_components
 # grunt编译临时路径
 .tmp
 # sass缓存路径
 .sass-cache
+# 
+._.DS_Store
