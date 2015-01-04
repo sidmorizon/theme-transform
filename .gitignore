@@ -37,3 +37,4 @@ bower_components
 .sass-cache
 # 
 ._.DS_Store
+.idea
