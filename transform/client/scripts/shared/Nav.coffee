@@ -12,8 +12,8 @@ angular.module('app.nav', [])
 
 # ])
 
-# swtich for mini style NAV, realted to 'collapseNav' directive
-.directive('toggleNavCollapsedMin', [ 
+# 大屏幕关闭左侧导航
+.directive('toggleNavCollapsedMin', [
     '$rootScope'
     ($rootScope) ->
         return {
@@ -32,6 +32,17 @@ angular.module('app.nav', [])
                 )
         }
 ])
+
+# 小屏幕关闭左侧导航
+.directive('toggleOffCanvas', [ ->
+    return {
+      restrict: 'A'
+      link: (scope, ele, attrs) ->
+        ele.on('click', ->
+          $('#app').toggleClass('on-canvas')
+        )
+    }
+  ])
 
 # for accordion/collapse style NAV
 .directive('collapseNav', [ ->
@@ -131,14 +142,5 @@ angular.module('app.nav', [])
     }
 ])
 
-# toggle on-canvas for small screen, with CSS
-.directive('toggleOffCanvas', [ ->
-    return {
-        restrict: 'A'
-        link: (scope, ele, attrs) ->
-            ele.on('click', ->
-                $('#app').toggleClass('on-canvas')
-            )
-    }
-])
+
 

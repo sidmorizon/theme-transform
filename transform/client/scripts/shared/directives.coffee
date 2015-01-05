@@ -12,7 +12,6 @@ angular.module('app.directives', [])
     }
 ])
 
-
 # add class for specific pages
 .directive('customPage', () ->
     return {
@@ -82,4 +81,5 @@ angular.module('app.directives', [])
         ]
     }
 ])
+
 

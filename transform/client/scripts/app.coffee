@@ -17,6 +17,7 @@ angular.module('app', [
     # Custom modules
     'app.controllers'
     'app.directives'
+    'app.services'
     'app.localization'
     'app.nav'
     'app.ui.ctrls'
@@ -32,20 +33,22 @@ angular.module('app', [
     'app.chart.directives'
     'app.page.ctrls'
 ])
-    
+
+
+# 配置路由$routeProvider
 .config([
     '$routeProvider'
     ($routeProvider) ->
 
         routes = [
             'dashboard'
-            'ui/typography', 'ui/buttons', 'ui/icons', 'ui/grids', 'ui/widgets', 'ui/components', 'ui/timeline', 'ui/nested-lists', 'ui/pricing-tables', 'ui/maps'
-            'tables/static', 'tables/dynamic', 'tables/responsive'
-            'forms/elements', 'forms/layouts', 'forms/validation', 'forms/wizard'
-            'charts/charts', 'charts/flot', 'charts/morris'
+            'transform-ui/ui/typography', 'transform-ui/ui/buttons', 'transform-ui/ui/icons', 'transform-ui/ui/grids', 'transform-ui/ui/widgets', 'transform-ui/ui/components', 'transform-ui/ui/timeline', 'transform-ui/ui/nested-lists', 'transform-ui/ui/pricing-tables', 'transform-ui/ui/maps'
+            'transform-ui/tables/static', 'transform-ui/tables/dynamic', 'transform-ui/tables/responsive'
+            'transform-ui/forms/elements', 'transform-ui/forms/layouts', 'transform-ui/forms/validation', 'transform-ui/forms/wizard'
+            'transform-ui/charts/charts', 'transform-ui/charts/flot', 'transform-ui/charts/morris'
             'pages/404', 'pages/500', 'pages/blank', 'pages/forgot-password', 'pages/invoice', 'pages/lock-screen', 'pages/profile', 'pages/signin', 'pages/signup'
-            'mail/compose', 'mail/inbox', 'mail/single'
-            'tasks/tasks'
+            'transform-ui/mail/compose', 'transform-ui/mail/inbox', 'transform-ui/mail/single'
+            'transform-ui/tasks/tasks'
         ]
 
         setRoutes = (route) ->
@@ -59,8 +62,26 @@ angular.module('app', [
         routes.forEach( (route) ->
             setRoutes(route)
         )
+
         $routeProvider
             .when('/', { redirectTo: '/dashboard'} )
-            .when('/404', { templateUrl: 'views/pages/404.html'} )
+            .when('/404', { redirectTo: '/pages/404'} )
             .otherwise( redirectTo: '/404' )
 ])
+
+# 配置全局http请求$httpProvider
+.config([
+    '$httpProvider'
+    ($httpProvider) ->
+      # 注入全局http请求之401、403处理
+      $httpProvider.responseInterceptors.push('httpInterceptor');
+      # 默认跨域ajax带上cookie身份信息
+      $httpProvider.defaults.withCredentials = true;
+])
+
+.run([
+    '$http'
+    'cyApi'
+    ($http,cyApi) ->
+      $http.get cyApi.getUrl('/forum/_cors_test_/'),{a:1}
+  ])

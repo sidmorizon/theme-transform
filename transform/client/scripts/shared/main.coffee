@@ -8,9 +8,15 @@ angular.module('app.controllers', [])
     ($scope, $rootScope) ->
         $window = $(window)
 
+        # Banner条
         $scope.main =
-            brand: 'Transform'
-            name: 'Lisa Doe' # those which uses i18n directive can not be replaced for now.
+            brand: '春雨运营后台'
+
+        # 用户信息
+        $scope.user =
+            name:'张三'
+            img:'https://cdn1.iconfinder.com/data/icons/unique-round-blue/93/user-128.png'
+
 
         $scope.admin =
             layout: 'wide'          # 'boxed', 'wide'
@@ -28,15 +34,15 @@ angular.module('app.controllers', [])
                  return
             if newVal.fixedHeader is false && newVal.fixedSidebar is true
                 if oldVal.fixedHeader is false && oldVal.fixedSidebar is false
-                    $scope.admin.fixedHeader = true 
-                    $scope.admin.fixedSidebar = true 
+                    $scope.admin.fixedHeader = true
+                    $scope.admin.fixedSidebar = true
                 if oldVal.fixedHeader is true && oldVal.fixedSidebar is true
-                    $scope.admin.fixedHeader = false 
-                    $scope.admin.fixedSidebar = false 
+                    $scope.admin.fixedHeader = false
+                    $scope.admin.fixedSidebar = false
                 return
             if newVal.fixedSidebar is true
                 $scope.admin.fixedHeader = true
-            if newVal.fixedHeader is false 
+            if newVal.fixedHeader is false
                 $scope.admin.fixedSidebar = false
 
             return
@@ -84,6 +90,7 @@ angular.module('app.controllers', [])
 
 
 ])
+
 .controller('NavCtrl', [
     '$scope', 'taskStorage', 'filterFilter'
     ($scope, taskStorage, filterFilter) ->
@@ -101,3 +108,4 @@ angular.module('app.controllers', [])
     ($scope) ->
 
 ])
+
